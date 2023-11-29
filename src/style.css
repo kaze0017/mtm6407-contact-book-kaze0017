@@ -16,7 +16,7 @@ a{
 }
 
 .back-btn{
-  background-color: blue;
+  background-color: rgb(115, 115, 254);
 }
 .edit-btn{
   background-color: green;
@@ -25,7 +25,7 @@ a{
   background-color: red;
 }
 .reset-btn{
-  background-color: blue;
+  background-color:  rgb(115, 115, 254);
 }
 .add-btn{
   background-color: green;
