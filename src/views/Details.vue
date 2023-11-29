@@ -1,13 +1,26 @@
 <template>
-  <h2>{{ contact.name }}</h2>
-  <p>{{ contact.email }}</p>
-  <p>{{ contact.phone }}</p>
-  <div class="btn">
-    <router-link :to="`/edit/${id}`">Edit</router-link>
+  <div class="wrapper">
+    <h2>Contact Details</h2>
+    <div class="contact-details-container">
+      <img :src="contact.picture" alt="" />
+      <p><strong>FirstName: </strong>{{ contact.firstName }}</p>
+      <p><strong>LastName: </strong>{{ contact.lastName }}</p>
+      <p><strong>Email: </strong>{{ contact.email }}</p>
+      <p><Strong>Phone: </Strong>{{ contact.phone }}</p>
+      <div class="btns-container-column">
+        <div class="btn edit-btn">
+          <router-link :to="`/edit/${id}`">Edit</router-link>
+        </div>
+        <div class="btn back-btn">
+          <router-link to="/">All Contacts </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import "./details.css";
 export default {
   props: {
     id: {
@@ -21,7 +34,6 @@ export default {
   created: function () {
     let data = localStorage.getItem("contacts");
     if (data) {
-      console.log(JSON.parse(data).filter((contact) => contact.id == this.id));
       this.contact = JSON.parse(data).filter(
         (contact) => contact.id == this.id
       )[0];

@@ -1,8 +1,8 @@
 <script setup></script>
 
 <template>
-  <h1>App</h1>
-  <router-link to="/">All Contacts</router-link>
-
+  <div class="wrapper">
+    <h1>Contact Book</h1>
+  </div>
   <router-view />
 </template>

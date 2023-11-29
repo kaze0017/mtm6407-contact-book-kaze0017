@@ -1,40 +1,59 @@
 <template>
-  <form @submit.prevent="editContact">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        v-model="contact.name"
-        class="form-control"
-        id="name"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        v-model="contact.email"
-        class="form-control"
-        id="email"
-      />
-    </div>
-    <div class="form-group">
-      <label for="phone">Phone</label>
-      <input
-        type="text"
-        v-model="contact.phone"
-        class="form-control"
-        id="phone"
-      />
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  <div class="wrapper">
+    <h2>Edit Contact</h2>
+
+    <form @submit.prevent="editContact">
+      <div class="form-group">
+        <label for="firstname">First Name: </label>
+        <input
+          type="text"
+          v-model="contact.firstName"
+          class="form-control"
+          id="firstname"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="lastname">Last Name: </label>
+        <input
+          type="text"
+          v-model="contact.lastName"
+          class="form-control"
+          id="lastname"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email: </label>
+        <input
+          type="email"
+          v-model="contact.email"
+          class="form-control"
+          id="email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone: </label>
+        <input
+          type="text"
+          v-model="contact.phone"
+          class="form-control"
+          id="phone"
+        />
+      </div>
+      <div class="btns-container-row">
+        <button type="submit" class="btn submit-btn">Submit</button>
+        <div class="back-btn btn">
+          <RouterLink :to="`/details/${id}`">Back</RouterLink>
+        </div>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
-import contacts from "../data/contacts";
-
+import { RouterLink } from "vue-router";
+import "./edit.css";
 export default {
   props: {
     id: {
@@ -68,5 +87,6 @@ export default {
       this.$router.push({ path: `/details/${this.id}` });
     },
   },
+  components: { RouterLink },
 };
 </script>

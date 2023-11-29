@@ -1,30 +1,123 @@
 <template>
-  <h1>Book</h1>
-  <div class="gallery">
-    <div class="card"><router-link :to="`/add`">add new +</router-link></div>
-    <div class="card" v-for="contact in contacts" :key="contact.id">
-      <router-link :to="`/details/${contact.id}`">
-        <h2>{{ contact.name }}</h2>
-      </router-link>
-    </div>
+  <div class="wrapper">
+    <h2>All Contacts</h2>
   </div>
+  <SearchField
+    :contacts="contacts"
+    @update:filteredContacts="updateFilteredContacts"
+  />
+  <Controls
+    :filteredContacts="filteredContacts"
+    :selectedContacts="selectedContacts"
+    @update:filteredContacts="updateFilteredContacts"
+    @update:selectedContacts="updateSelectedContacts"
+    @update:resultContacts="resetContacts"
+  />
+  <Contacts
+    :filteredContacts="filteredContacts"
+    @update:selectedContacts="updateSelectedContacts"
+  />
 </template>
 
 <script>
-import contacts from "../data/contacts.js";
+// import contacts from "../data/contacts.js";
+import SearchField from "../components/SearchField.vue";
+import Contacts from "../components/Contacts.vue";
+import Contact from "../components/Contact.vue";
+import Controls from "../components/Controls.vue";
+import initialDb from "../utils/initialDb.js";
 export default {
   data() {
     return {
-      contacts,
+      contacts: [],
+      search: "",
+      filteredContacts: [],
+      selectedContacts: [],
     };
   },
   created() {
-    let data = localStorage.getItem("contacts");
-    if (data) {
-      this.contacts = JSON.parse(data);
-    } else {
-      localStorage.setItem("contacts", JSON.stringify(contacts));
-    }
+    (async () => {
+      let data = localStorage.getItem("contacts");
+      if (data) {
+        this.contacts = this.sortContacts(JSON.parse(data));
+      } else {
+        let apiContacts = await initialDb();
+        apiContacts.forEach((contact) => {
+          this.contacts.push({
+            id: contact.id.value,
+            firstName: contact.name.first,
+            lastName: contact.name.last,
+            phone: contact.phone,
+            email: contact.email,
+            address: contact.location.city,
+            picture: contact.picture.large,
+          });
+        });
+
+        let sortedContacts = this.sortContacts(this.contacts);
+        localStorage.setItem("contacts", JSON.stringify(sortedContacts));
+      }
+      this.filteredContacts = this.contacts;
+    })();
   },
+
+  methods: {
+    sortContacts(contacts) {
+      let sortedContacts = contacts.sort(function (a, b) {
+        const lastNameA = a.lastName.toUpperCase();
+        const lastNameB = b.lastName.toUpperCase();
+        if (lastNameA < lastNameB) {
+          return -1;
+        }
+        if (lastNameA > lastNameB) {
+          return 1;
+        }
+        return 0;
+      });
+      return sortedContacts;
+    },
+    updateFilteredContacts(newFilteredContacts) {
+      this.filteredContacts = newFilteredContacts;
+    },
+
+    deleteSelectedContact() {
+      let newContacts = this.contacts.filter(
+        (contact) => !this.selectedContacts.includes(contact.id)
+      );
+      this.contacts = newContacts;
+      this.filteredContacts = newContacts;
+      localStorage.setItem("contacts", JSON.stringify(newContacts));
+      this.selectedContacts = [];
+    },
+    updateSelectedContacts(newSelectedContacts) {
+      this.selectedContacts = newSelectedContacts;
+    },
+    async resetContacts() {
+      localStorage.removeItem("contacts");
+      localStorage.removeItem("apiContacts");
+
+      let apiContacts = await initialDb();
+      let contacts = [];
+      apiContacts.forEach((contact) => {
+        contacts.push({
+          id: contact.id.value,
+          firstName: contact.name.first,
+          lastName: contact.name.last,
+          phone: contact.phone,
+          email: contact.email,
+          address: contact.location.city,
+          picture: contact.picture.large,
+        });
+      });
+      this.filteredContacts = [];
+      this.selectedContacts = [];
+
+      this.contacts = this.sortContacts(contacts);
+      this.filteredContacts = this.sortContacts(contacts);
+      localStorage.setItem("contacts", JSON.stringify(this.contacts));
+    },
+  },
+
+  components: { SearchField, Contact, Contacts, Controls },
 };
 </script>
