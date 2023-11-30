@@ -2,7 +2,7 @@
 
 <template>
   <div class="wrapper">
-    <h1>Contact Book</h1>
+    <h1 class="app-title">Your Favorite Contact Book</h1>
+    <router-view />
   </div>
-  <router-view />
 </template>

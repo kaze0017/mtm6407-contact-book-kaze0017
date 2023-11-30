@@ -1,14 +1,16 @@
 <template>
   <div class="wrapper">
     <div class="btns-container-row">
-      <div class="delete-btn btn" @click="deleteSelectedContacts">
-        Delete Selected
+      <div class="btn btn-danger" @click="deleteSelectedContacts">
+        <img class="icon" src="../assets/trash.svg" alt="" />
       </div>
-      <div class="reset-btn btn" @click="resetContactsToDefault">
-        Reset Contacts
+      <div class="btn btn-info" @click="resetContactsToDefault">
+        <img class="icon" src="../assets/reset.svg" alt="" />
       </div>
-      <div class="add-btn btn">
-        <router-link to="/add">Add Contact</router-link>
+      <div class="btn btn-success">
+        <router-link to="/add">
+          <img class="icon" src="../assets/add.svg" alt="" />
+        </router-link>
       </div>
     </div>
   </div>

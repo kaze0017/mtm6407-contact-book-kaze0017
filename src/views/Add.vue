@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
-    <h2>Add New Contact</h2>
     <form @submit.prevent="addContact">
-      <div class="form-group">
-        <label>Gender</label>
-        <div class="radio-btns-container">
+      <h2>Add New Contact</h2>
+      <div class="form-group row">
+        <label class="col-sm-2">Gender</label>
+        <div class="col-sm-10">
           <div class="form-check form-check-inline">
             <input
               type="radio"
@@ -28,52 +28,64 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="firstname">First Name</label>
-        <input
-          type="text"
-          v-model="contact.firstName"
-          class="form-control"
-          id="firstname"
-          placeholder="Enter name"
-          required
-        />
+      <div class="form-group row">
+        <label for="firstname" class="col-sm-2">First Name</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            v-model="contact.firstName"
+            class="form-control"
+            id="firstname"
+            placeholder="Enter name"
+            required
+          />
+        </div>
       </div>
-      <div class="form-group">
-        <label for="lastname">Last Name</label>
-        <input
-          type="text"
-          v-model="contact.lastName"
-          class="form-control"
-          id="lastname"
-          placeholder="Enter name"
-          required
-        />
+      <div class="form-group row">
+        <label for="lastname" class="col-sm-2">Last Name</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            v-model="contact.lastName"
+            class="form-control"
+            id="lastname"
+            placeholder="Enter last name"
+            required
+          />
+        </div>
       </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          v-model="contact.email"
-          class="form-control"
-          id="email"
-          placeholder="Enter email"
-        />
+      <div class="form-group row">
+        <label for="email" class="col-sm-2">Email</label>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            v-model="contact.email"
+            class="form-control"
+            id="email"
+            placeholder="Enter email"
+          />
+        </div>
       </div>
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <input
-          type="text"
-          v-model="contact.phone"
-          class="form-control"
-          id="phone"
-          placeholder="Enter phone"
-        />
+      <div class="form-group row">
+        <label for="phone" class="col-sm-2">Phone</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            v-model="contact.phone"
+            class="form-control"
+            id="phone"
+            placeholder="Enter phone"
+          />
+        </div>
       </div>
       <div class="btns-container-row">
-        <button type="submit" class="btn submit-btn">Submit</button>
-        <div class="btn back-btn">
-          <router-link to="/">All Contacts</router-link>
+        <button type="submit" class="btn btn-success">
+          <img src="../assets/add.svg" alt="" />
+        </button>
+        <div class="btn btn-primary">
+          <router-link to="/"
+            ><img src="../assets/book.svg" alt=""
+          /></router-link>
         </div>
       </div>
     </form>

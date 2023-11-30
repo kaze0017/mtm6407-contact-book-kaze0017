@@ -1,50 +1,66 @@
 <template>
   <div class="wrapper">
-    <h2>Edit Contact</h2>
-
     <form @submit.prevent="editContact">
-      <div class="form-group">
-        <label for="firstname">First Name: </label>
-        <input
-          type="text"
-          v-model="contact.firstName"
-          class="form-control"
-          id="firstname"
-          required
-        />
+      <h2>Edit Contact</h2>
+      <img class="contact-img" :src="contact.picture" alt="" />
+      <div class="form-group row">
+        <label for="firstname" class="col-sm-2 col-form-label"
+          >First Name:
+        </label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            v-model="contact.firstName"
+            class="form-control"
+            id="firstname"
+            required
+          />
+        </div>
       </div>
-      <div class="form-group">
-        <label for="lastname">Last Name: </label>
-        <input
-          type="text"
-          v-model="contact.lastName"
-          class="form-control"
-          id="lastname"
-          required
-        />
+      <div class="form-group row">
+        <label for="lastname" class="col-sm-2 col-form-label"
+          >Last Name:
+        </label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            v-model="contact.lastName"
+            class="form-control"
+            id="lastname"
+            required
+          />
+        </div>
       </div>
-      <div class="form-group">
-        <label for="email">Email: </label>
-        <input
-          type="email"
-          v-model="contact.email"
-          class="form-control"
-          id="email"
-        />
+      <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email: </label>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            v-model="contact.email"
+            class="form-control"
+            id="email"
+          />
+        </div>
       </div>
-      <div class="form-group">
-        <label for="phone">Phone: </label>
-        <input
-          type="text"
-          v-model="contact.phone"
-          class="form-control"
-          id="phone"
-        />
+      <div class="form-group row">
+        <label for="phone" class="col-sm-2 col-form-label">Phone: </label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            v-model="contact.phone"
+            class="form-control"
+            id="phone"
+          />
+        </div>
       </div>
       <div class="btns-container-row">
-        <button type="submit" class="btn submit-btn">Submit</button>
-        <div class="back-btn btn">
-          <RouterLink :to="`/details/${id}`">Back</RouterLink>
+        <button type="submit" class="btn btn-success">
+          <img src="../assets/person-check.svg" alt="" />
+        </button>
+        <div class="btn btn-primary">
+          <RouterLink :to="`/details/${id}`">
+            <img src="../assets/back.svg" alt="" />
+          </RouterLink>
         </div>
       </div>
     </form>

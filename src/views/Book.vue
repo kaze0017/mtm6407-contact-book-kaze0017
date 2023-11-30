@@ -1,22 +1,22 @@
 <template>
-  <div class="wrapper">
+  <div class="book-container">
     <h2>All Contacts</h2>
+    <SearchField
+      :contacts="contacts"
+      @update:filteredContacts="updateFilteredContacts"
+    />
+    <Controls
+      :filteredContacts="filteredContacts"
+      :selectedContacts="selectedContacts"
+      @update:filteredContacts="updateFilteredContacts"
+      @update:selectedContacts="updateSelectedContacts"
+      @update:resultContacts="resetContacts"
+    />
+    <Contacts
+      :filteredContacts="filteredContacts"
+      @update:selectedContacts="updateSelectedContacts"
+    />
   </div>
-  <SearchField
-    :contacts="contacts"
-    @update:filteredContacts="updateFilteredContacts"
-  />
-  <Controls
-    :filteredContacts="filteredContacts"
-    :selectedContacts="selectedContacts"
-    @update:filteredContacts="updateFilteredContacts"
-    @update:selectedContacts="updateSelectedContacts"
-    @update:resultContacts="resetContacts"
-  />
-  <Contacts
-    :filteredContacts="filteredContacts"
-    @update:selectedContacts="updateSelectedContacts"
-  />
 </template>
 
 <script>
@@ -55,6 +55,7 @@ export default {
         });
 
         let sortedContacts = this.sortContacts(this.contacts);
+        this.filteredContacts = sortedContacts;
         localStorage.setItem("contacts", JSON.stringify(sortedContacts));
       }
       this.filteredContacts = this.contacts;
